@@ -32,7 +32,7 @@ class LinkedList:
 
     def node(self, at: int) -> Node:
         counter = 0
-        node = self.headp.py
+        node = self.head
 
         while (counter != at):
             node = node.next
