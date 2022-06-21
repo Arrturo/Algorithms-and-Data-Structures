@@ -28,6 +28,7 @@ class LinkedList:
         if (self.tail == None):
             self.tail = node
             self.head = node
+        self.tail.next = node
         self.tail = node
 
     def node(self, at: int) -> Node:
@@ -48,23 +49,65 @@ class LinkedList:
 
     def pop(self) -> Any:
         node = self.head
-        self.head = None 
-        return node
+        self.head = node.next
+        return node.value
 
-    def remove_last(self) -> Any:
-        node = self.tail
-        self.tail = None
-        return node
-    
+    def remove_last(self):
+        node = self.head
+        while (node.next.next):
+            node = node.next
+        last = node.next
+        node.next = None
+        return last.value
+
     def remove(self, after: Node) -> Any:
         after.next = after.next.next
         after.next.next = None
         after.next.value = None
 
-    def print(self) -> str:
+    def __str__(self) -> str:
         node = self.head
-        head = f'{node.value}'
-        while (node.next != None):
+        node_value = f'{node.value}'
+        while (node.next):  # (node.next != None)
             node = node.next
-            return head + '->' + f'{node.value}'
-        return head
+            node_value =  node_value + ' -> ' + f'{node.value}'
+        return node_value
+
+
+#======ASSERTS=======
+list_ = LinkedList()
+
+#ASSERT 1
+assert list_.head == None
+
+#ASSERT 2
+list_.push(1)
+list_.push(0)
+
+assert str(list_) == '0 -> 1'
+
+#ASSERT 3
+list_.append(9)
+list_.append(10)
+
+assert str(list_) == '0 -> 1 -> 9 -> 10'
+
+#ASSERT 4
+middle_node = list_.node(at=1)
+list_.insert(5, after=middle_node)
+
+assert str(list_) == '0 -> 1 -> 5 -> 9 -> 10'
+
+#ASSERT 5
+first_element = list_.node(at=0)
+returned_first_element = list_.pop()
+
+assert first_element.value == returned_first_element
+assert str(list_) == '1 -> 5 -> 9 -> 10'
+
+#ASSERT 6
+last_element = list_.node(at=3)
+returned_last_element = list_.remove_last()
+
+assert last_element.value == returned_last_element
+assert str(list_) == '1 -> 5 -> 9'
