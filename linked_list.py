@@ -61,9 +61,22 @@ class LinkedList:
         return last.value
 
     def remove(self, after: Node) -> Any:
+        if after.next.next == None:
+            removed = after.next
+            after.next = None
+            return removed.value
+        removed = after.next
         after.next = after.next.next
         after.next.next = None
-        after.next.value = None
+        return removed.value
+
+    # def remove(self, after: Node) -> Any:
+    #     node = self.head
+    #     while node != after:
+    #         node = node.next
+    #     removed = node.next
+    #     node.next = None
+    #     return removed.value
 
     def __str__(self) -> str:
         node = self.head
@@ -73,6 +86,15 @@ class LinkedList:
             node_value =  node_value + ' -> ' + f'{node.value}'
         return node_value
 
+    def __len__(self) -> int:
+        node = self.head
+        sum = 0 
+        if self.head == None:
+            return 0
+        while node != None:
+            node = node.next
+            sum += 1
+        return sum
 
 #======ASSERTS=======
 list_ = LinkedList()
@@ -111,3 +133,12 @@ returned_last_element = list_.remove_last()
 
 assert last_element.value == returned_last_element
 assert str(list_) == '1 -> 5 -> 9'
+
+#ASSERT 7
+second_node = list_.node(at=1)
+list_.remove(second_node)
+
+assert str(list_) == '1 -> 5'
+
+#ASSERT 8
+assert len(list_) == 2
