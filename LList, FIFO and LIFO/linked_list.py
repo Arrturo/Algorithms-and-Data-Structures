@@ -16,6 +16,24 @@ class LinkedList:
         self.head = head
         self.tail = tail
 
+    def __str__(self) -> str:
+        node = self.head
+        node_value = f'{node.value}'
+        while (node.next):  # (node.next != None)
+            node = node.next
+            node_value = node_value + ' -> ' + f'{node.value}'
+        return node_value
+
+    def __len__(self) -> int:
+        node = self.head
+        sum = 0
+        if self.head == None:
+            return 0
+        while node != None:
+            node = node.next
+            sum += 1
+        return sum
+
     def push(self, value: Any) -> None:
         node = Node(value, self.head)
         self.head = node
@@ -77,24 +95,6 @@ class LinkedList:
     #     removed = node.next
     #     node.next = None
     #     return removed.value
-
-    def __str__(self) -> str:
-        node = self.head
-        node_value = f'{node.value}'
-        while (node.next):  # (node.next != None)
-            node = node.next
-            node_value =  node_value + ' -> ' + f'{node.value}'
-        return node_value
-
-    def __len__(self) -> int:
-        node = self.head
-        sum = 0 
-        if self.head == None:
-            return 0
-        while node != None:
-            node = node.next
-            sum += 1
-        return sum
 
 #======ASSERTS=======
 list_ = LinkedList()

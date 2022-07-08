@@ -1,16 +1,9 @@
 from linked_list import *
 
 class Stack:
-    _storage: LinkedList
-
-    def __init__(self):
-        self._storage = LinkedList()
-    
-    def push(self, element: Any) -> None:
-        self._storage.push(element)
-    
-    def pop(self) -> None:
-        return self._storage.pop()
+    """
+        _storage: LinkedList
+    """
 
     def __str__(self) -> str:
         node = self._storage.head
@@ -23,6 +16,16 @@ class Stack:
 
     def __len__(self) -> int:
         return len(self._storage)
+
+    def __init__(self):
+        self._storage = LinkedList()
+    
+    def push(self, element: Any) -> None:
+        self._storage.push(element)
+    
+    def pop(self) -> None:
+        return self._storage.pop()
+
 
 #======ASSERTS=======
 
