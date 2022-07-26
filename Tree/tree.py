@@ -15,7 +15,7 @@ class TreeNode:
         return f'{self.value}'
 
     def is_leaf(self) -> bool:
-        if self.children is None:
+        if self.children == []:
             return True
         return False
 
@@ -33,7 +33,7 @@ class TreeNode:
         que = queue.Queue()
         for child in self.children:
             que.put(child)
-        #que.put(self)
+        # que.put(self)
         while que.empty() == False:
             element = que.get()
             visit(element)
@@ -41,12 +41,14 @@ class TreeNode:
                 que.put(child)
 
     def search(self, value: Any) -> Union['TreeNode', None]:
-        if value == self.value:
+        if self.value == value:
             return True
         for child in self.children:
-            if value == child.value:
+            # if child.value == value:
+            #     return True
+            # child.search(value)
+            if child.search(value):
                 return True
-            child.search(value)
         return False
 
 class Tree:
@@ -56,3 +58,40 @@ class Tree:
 
     def __init__(self, root: TreeNode):
         self.root = root
+
+    def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
+        self.root.for_each_level_order(visit)
+
+    def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
+        self.root.for_each_deep_first(visit)
+
+# TreeNode
+
+node3 = TreeNode(4)
+node4 = TreeNode(9)
+node5 = TreeNode(8)
+node6 = TreeNode(2)
+node1 = TreeNode(3, [node3, node4])
+node2 = TreeNode(0, [node5])
+tree_node = TreeNode(1, [node1, node2])
+tree_node.add(node6)
+
+assert node1.is_leaf() == False
+assert node5.is_leaf() == True
+
+print("\nFOR EACH DEEP FIRST:")
+tree_node.for_each_deep_first(print)
+print("\nFOR EACH LEVEL ORDER:")
+tree_node.for_each_level_order(print)
+print()
+assert tree_node.search(4) == True
+assert tree_node.search(5) == False
+
+## Tree
+
+print()
+tree = Tree(tree_node)
+print("\nFOR EACH DEEP FIRST:")
+tree.for_each_deep_first(print)
+print("\nFOR EACH LEVEL ORDER:")
+tree.for_each_level_order(print)
