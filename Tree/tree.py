@@ -9,9 +9,9 @@ class TreeNode:
 
     def __init__(self, value: Any, children: List['TreeNode'] = []):
         self.value = value
-        self.children = children
+        self.children = children.copy()
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return f'{self.value}'
 
     def is_leaf(self) -> bool:
@@ -44,12 +44,14 @@ class TreeNode:
         if self.value == value:
             return True
         for child in self.children:
+            # returns error
             # if child.value == value:
             #     return True
             # child.search(value)
             if child.search(value):
                 return True
         return False
+
 
 class Tree:
     """
@@ -58,6 +60,18 @@ class Tree:
 
     def __init__(self, root: TreeNode):
         self.root = root
+
+    def add(self, value: Any, parent_value: Any) -> None:
+        if self.root.search(parent_value) == True:
+            node = TreeNode(value)
+            if self.root.value == parent_value:
+                self.root.add(node)
+            for child in self.root.children:
+                if child.value == parent_value:
+                    child.add(node)
+                for child2 in child.children:
+                    if child2.value == parent_value:
+                        child2.add(node)
 
     def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
         self.root.for_each_level_order(visit)
@@ -91,6 +105,11 @@ assert tree_node.search(5) == False
 
 print()
 tree = Tree(tree_node)
+tree.add(10, 0)
+tree.add(3.5, 8)
+tree.add(12, 4)
+tree.add(15, 1)
+
 print("\nFOR EACH DEEP FIRST:")
 tree.for_each_deep_first(print)
 print("\nFOR EACH LEVEL ORDER:")
