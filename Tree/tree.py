@@ -84,7 +84,7 @@ class Tree:
         self.root.for_each_deep_first(visit)
     
     def show(self):
-        _show = graphviz.Graph('G', filename='Tree.gv', format='png')
+        _show = graphviz.Digraph('G', filename='Tree.gv', format='png')
         _show.node(f'{self.root}')
         que = queue.Queue()
         que.put(self.root)
