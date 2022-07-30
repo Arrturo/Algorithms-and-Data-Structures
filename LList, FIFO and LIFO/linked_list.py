@@ -1,4 +1,5 @@
 from typing import Any
+import graphviz
 
 class Node:
     # value: Any
@@ -96,6 +97,18 @@ class LinkedList:
     #     node.next = None
     #     return removed.value
 
+    def show(self):
+        _show = graphviz.Digraph('LL', filename='LinkedList', format='png')
+        _show.attr(rankdir="LR")
+        _show.attr('node', shape='box')
+        _show.attr(arrowhead='vee')
+
+        node = self.head
+        while node.next:
+            _show.edge(f'{node.value}', f'{node.next.value}')
+            node = node.next
+        _show.view()
+
 #======ASSERTS=======
 list_ = LinkedList()
 
@@ -142,3 +155,5 @@ assert str(list_) == '1 -> 5'
 
 #ASSERT 8
 assert len(list_) == 2
+
+list_.show()
