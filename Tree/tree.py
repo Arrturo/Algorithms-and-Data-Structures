@@ -1,5 +1,6 @@
 from typing import Any, Callable, List, Union
 import queue
+import graphviz
 
 class TreeNode:
     '''
@@ -62,22 +63,37 @@ class Tree:
         self.root = root
 
     def add(self, value: Any, parent_value: Any) -> None:
-        if self.root.search(parent_value) == True:
+        if self.root.search(parent_value):
             node = TreeNode(value)
-            if self.root.value == parent_value:
-                self.root.add(node)
-            for child in self.root.children:
-                if child.value == parent_value:
-                    child.add(node)
-                for child2 in child.children:
-                    if child2.value == parent_value:
-                        child2.add(node)
+            que = queue.Queue()
+            que.put(self.root)
+            while que.empty() == False:
+                element = que.get()
+                if element.value == parent_value:
+                    element.add(node)
+                    break  
+                for child in element.children:
+                    que.put(child)
+        else:
+            print("parent_value does not exist")
 
     def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
         self.root.for_each_level_order(visit)
 
     def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
         self.root.for_each_deep_first(visit)
+    
+    def show(self):
+        _show = graphviz.Graph('G', filename='Tree.gv', format='png')
+        _show.node(f'{self.root}')
+        que = queue.Queue()
+        que.put(self.root)
+        while que.empty() == False:
+            element = que.get()
+            for child in element.children:
+                que.put(child)
+                _show.edge(f'{element}', f'{child}')
+        _show.view()
 
 # TreeNode
 
@@ -109,8 +125,9 @@ tree.add(10, 0)
 tree.add(3.5, 8)
 tree.add(12, 4)
 tree.add(15, 1)
-
+tree.add(23, 12)
 print("\nFOR EACH DEEP FIRST:")
 tree.for_each_deep_first(print)
 print("\nFOR EACH LEVEL ORDER:")
 tree.for_each_level_order(print)
+tree.show()
