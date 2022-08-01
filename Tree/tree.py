@@ -85,6 +85,7 @@ class Tree:
     
     def show(self):
         _show = graphviz.Digraph('G', filename='Tree.gv', format='png')
+        _show.attr('node', shape='circle', fixedsize='true')
         _show.node(f'{self.root}')
         que = queue.Queue()
         que.put(self.root)
@@ -105,7 +106,6 @@ node1 = TreeNode(3, [node3, node4])
 node2 = TreeNode(0, [node5])
 tree_node = TreeNode(1, [node1, node2])
 tree_node.add(node6)
-
 assert node1.is_leaf() == False
 assert node5.is_leaf() == True
 
