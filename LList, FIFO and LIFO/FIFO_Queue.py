@@ -38,26 +38,3 @@ class Queue:
         #     return True
         # return False
         return len(self._storage) == 0
-
-#======ASSERTS=======
-
-queue = Queue()
-
-#ASSERT 1
-assert len(queue) == 0
-
-#ASSERT 2
-queue.enqueue('client1')
-queue.enqueue('client2')
-queue.enqueue('client3')
-
-assert str(queue) == 'client1, client2, client3'
-
-#ASSERT 3
-client_first = queue.dequeue()
-
-assert client_first == 'client1'
-assert str(queue) == 'client2, client3'
-assert len(queue) == 2
-
-assert queue.is_empty() == False

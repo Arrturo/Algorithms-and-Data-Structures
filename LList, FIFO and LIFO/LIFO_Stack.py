@@ -25,25 +25,3 @@ class Stack:
     
     def pop(self) -> None:
         return self._storage.pop()
-
-
-#======ASSERTS=======
-
-stack = Stack()
-
-#ASSERT 1
-assert len(stack) == 0
-stack.push(3)
-stack.push(10)
-stack.push(1)
-
-#ASSERT 2
-assert len(stack) == 3
-
-top_value = stack.pop()
-
-#ASSERT 3
-assert top_value == 1
-assert len(stack) == 2
-
-print(str(stack))

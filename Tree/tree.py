@@ -96,38 +96,3 @@ class Tree:
                 _show.edge(f'{element}', f'{child}')
         _show.view()
 
-# TreeNode
-
-node3 = TreeNode(4)
-node4 = TreeNode(9)
-node5 = TreeNode(8)
-node6 = TreeNode(2)
-node1 = TreeNode(3, [node3, node4])
-node2 = TreeNode(0, [node5])
-tree_node = TreeNode(1, [node1, node2])
-tree_node.add(node6)
-assert node1.is_leaf() == False
-assert node5.is_leaf() == True
-
-print("\nFOR EACH DEEP FIRST:")
-tree_node.for_each_deep_first(print)
-print("\nFOR EACH LEVEL ORDER:")
-tree_node.for_each_level_order(print)
-print()
-assert tree_node.search(4) == True
-assert tree_node.search(5) == False
-
-## Tree
-
-print()
-tree = Tree(tree_node)
-tree.add(10, 0)
-tree.add(3.5, 8)
-tree.add(12, 4)
-tree.add(15, 1)
-tree.add(23, 12)
-print("\nFOR EACH DEEP FIRST:")
-tree.for_each_deep_first(print)
-print("\nFOR EACH LEVEL ORDER:")
-tree.for_each_level_order(print)
-tree.show()

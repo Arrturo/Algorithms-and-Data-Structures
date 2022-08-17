@@ -1,6 +1,5 @@
 from typing import Any, Callable
 import graphviz
-from binarytree import tree
 
 class BinaryNode:
     """
@@ -73,6 +72,7 @@ class BinaryTree:
     def traverse_pre_order(self, visit: Callable[[Any], None]):
         self.root.traverse_pre_order(visit)
 
+    #fix needed
     def show(self):
         _show = graphviz.Digraph('B', filename='BinaryTree.gv', format='png')
         _show.attr('node', shape='circle')
@@ -95,41 +95,3 @@ class BinaryTree:
             _show.edge(f'{node.value}', f'{node.right_child.value}')
             node = node.right_child
         _show.view()
-
-
-node = BinaryNode(10)
-
-node1 = BinaryNode(2)
-node2 = BinaryNode(4)
-node3 = BinaryNode(6)
-
-node4 = BinaryNode(9)
-node5 = BinaryNode(1)
-node6 = BinaryNode(3)
-
-tree = BinaryTree(node)
-
-assert tree.root.value == 10
-
-tree.root.add_right_child(node1)
-node1.add_left_child(node2)
-node1.add_right_child(node3)
-
-tree.root.add_left_child(node4)
-node4.add_left_child(node5)
-node4.add_right_child(node6)
-
-
-assert tree.root.right_child.value == 2
-assert tree.root.right_child.is_leaf() is False
-
-assert tree.root.left_child.left_child.value == 1
-assert tree.root.left_child.left_child.is_leaf() is True
-
-print("TRAVERSE IN ORDER:")
-tree.traverse_in_order(print)
-print("\nTRAVERSE POST ORDER:")
-tree.traverse_post_order(print)
-print("\nTRAVERSE PRE ORDER:")
-tree.traverse_pre_order(print)
-tree.show()
