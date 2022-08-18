@@ -1,18 +1,18 @@
-import tree
+import generic_tree
 import binary_tree
 # import binary_search_tree
 
-#TREE
+#GENERIC TREE
 
 # TreeNode
 
-node3 = tree.TreeNode(4)
-node4 = tree.TreeNode(9)
-node5 = tree.TreeNode(8)
-node6 = tree.TreeNode(2)
-node1 = tree.TreeNode(3, [node3, node4])
-node2 = tree.TreeNode(0, [node5])
-tree_node = tree.TreeNode(1, [node1, node2])
+node3 = generic_tree.TreeNode(4)
+node4 = generic_tree.TreeNode(9)
+node5 = generic_tree.TreeNode(8)
+node6 = generic_tree.TreeNode(2)
+node1 = generic_tree.TreeNode(3, [node3, node4])
+node2 = generic_tree.TreeNode(0, [node5])
+tree_node = generic_tree.TreeNode(1, [node1, node2])
 tree_node.add(node6)
 assert node1.is_leaf() == False
 assert node5.is_leaf() == True
@@ -28,7 +28,7 @@ assert tree_node.search(5) == False
 ## Tree
 
 print()
-tree = tree.Tree(tree_node)
+tree = generic_tree.Tree(tree_node)
 tree.add(10, 0)
 tree.add(3.5, 8)
 tree.add(12, 4)

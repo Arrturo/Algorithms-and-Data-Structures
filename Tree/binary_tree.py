@@ -63,35 +63,41 @@ class BinaryTree:
     def __init__(self, root: BinaryNode):
         self.root = root
 
-    def traverse_in_order(self, visit: Callable[[Any], None]):
+    def traverse_in_order(self, visit: Callable[[Any], None]) -> None:
         self.root.traverse_in_order(visit)
 
-    def traverse_post_order(self, visit: Callable[[Any], None]):
+    def traverse_post_order(self, visit: Callable[[Any], None]) -> None:
         self.root.traverse_post_order(visit)
 
-    def traverse_pre_order(self, visit: Callable[[Any], None]):
+    def traverse_pre_order(self, visit: Callable[[Any], None]) -> None:
         self.root.traverse_pre_order(visit)
 
-    #fix needed
     def show(self):
         _show = graphviz.Digraph('B', filename='BinaryTree.gv', format='png')
         _show.attr('node', shape='circle')
         _show.attr(splines='ortho')
         _show.node(f'{self.root}')
         
-        node = self.root
+        # while node.left_child:
+        #     _show.edge(f'{node.value}', f'{node.left_child.value}')
+        #     if node.right_child != None:
+        #         _show.edge(f'{node.value}', f'{node.right_child.value}')
+        #     node = node.left_child
 
-        while node.left_child:
-            _show.edge(f'{node.value}', f'{node.left_child.value}')
-            if node.right_child != None:
-                _show.edge(f'{node.value}', f'{node.right_child.value}')
-            node = node.left_child
+        # node = self.root.right_child
 
-        node = self.root.right_child
+        # while node.right_child:
+        #     if node.left_child != None:
+        #         _show.edge(f'{node.value}', f'{node.left_child.value}')
+        #     _show.edge(f'{node.value}', f'{node.right_child.value}')
+        #     node = node.right_child
+        # _show.view()
 
-        while node.right_child:
-            if node.left_child != None:
+        def childrens(node: BinaryNode) -> None:
+            if node.left_child:
                 _show.edge(f'{node.value}', f'{node.left_child.value}')
-            _show.edge(f'{node.value}', f'{node.right_child.value}')
-            node = node.right_child
+            if node.right_child:
+                _show.edge(f'{node.value}', f'{node.right_child.value}')
+        
+        self.traverse_pre_order(childrens)
         _show.view()
