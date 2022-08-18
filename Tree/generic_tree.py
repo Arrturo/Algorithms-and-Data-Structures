@@ -87,12 +87,18 @@ class Tree:
         _show = graphviz.Digraph('G', filename='Tree.gv', format='png')
         _show.attr('node', shape='circle', fixedsize='true')
         _show.node(f'{self.root}')
-        que = queue.Queue()
-        que.put(self.root)
-        while que.empty() == False:
-            element = que.get()
-            for child in element.children:
-                que.put(child)
-                _show.edge(f'{element}', f'{child}')
-        _show.view()
+        # que = queue.Queue()
+        # que.put(self.root)
+        # while que.empty() == False:
+        #     element = que.get()
+        #     for child in element.children:
+        #         que.put(child)
+        #         _show.edge(f'{element}', f'{child}')
+        # _show.view()
 
+        def childrens(node: TreeNode) -> None:
+            for child in node.children:
+                _show.edge(f'{node.value}', f'{child}') 
+
+        self.for_each_level_order(childrens)
+        _show.view()
