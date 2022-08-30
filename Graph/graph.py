@@ -4,6 +4,8 @@ from typing import Callable, Dict, List, Optional, Any
 from enum import Enum
 from graphviz import Graph as Gr
 #TO DO: make show() better
+#       add dijkstra algorithm
+#       add shortest path in weighted graph algorithm
 
 class EdgeType(Enum):
     directed = 1
