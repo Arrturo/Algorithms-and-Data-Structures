@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, Callable, List
 import graphviz
 
 class BinaryNode:
@@ -11,9 +11,9 @@ class BinaryNode:
         self.left_child = None
         self.right_child = None
     
-        def __repr__(self) -> str:
-            return f'{self.value}'
-
+    def __repr__(self) -> str:
+        return f'{self.value}'
+    
     def min(self):
         if self.left_child != None:
             self.left_child.min()
@@ -24,6 +24,12 @@ class BinaryNode:
             return True
         return False
 
+    def traverse_pre_order(self, visit: Callable[[Any], None]) -> None:
+        visit(self)
+        if self.left_child != None:
+            self.left_child.traverse_pre_order(visit)
+        if self.right_child != None:
+            self.right_child.traverse_pre_order(visit)
 
 class BinarySearchTree:
     root: BinaryNode
@@ -82,9 +88,12 @@ class BinarySearchTree:
             node.left_child = self._remove(node.right_child, value)
         return node
 
+    def traverse_pre_order(self, visit: Callable[[Any], None]) -> None:
+        self.root.traverse_pre_order(visit)
+
     def show(self):
         _show = graphviz.Digraph('BST', filename='BinarySearchTree.gv', format='png')
-        _show.attr('node', shape='circle')
+        _show.attr(shape='circle', ordering="out")
         _show.attr(splines='ortho')
         _show.node(f'{self.root}')
 

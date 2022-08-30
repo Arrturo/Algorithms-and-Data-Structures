@@ -77,21 +77,6 @@ class BinaryTree:
         _show.attr('node', shape='circle')
         _show.attr(splines='ortho')
         _show.node(f'{self.root}')
-        
-        # while node.left_child:
-        #     _show.edge(f'{node.value}', f'{node.left_child.value}')
-        #     if node.right_child != None:
-        #         _show.edge(f'{node.value}', f'{node.right_child.value}')
-        #     node = node.left_child
-
-        # node = self.root.right_child
-
-        # while node.right_child:
-        #     if node.left_child != None:
-        #         _show.edge(f'{node.value}', f'{node.left_child.value}')
-        #     _show.edge(f'{node.value}', f'{node.right_child.value}')
-        #     node = node.right_child
-        # _show.view()
 
         def childrens(node: BinaryNode) -> None:
             if node.left_child:
@@ -101,3 +86,21 @@ class BinaryTree:
         
         self.traverse_pre_order(childrens)
         _show.view()
+
+def Lowest_Common_Ancestor(tree: BinaryTree, first_node: BinaryNode, second_node: BinaryNode) -> BinaryNode:
+    if tree == None:
+        return None
+
+    if tree.value == first_node.value or tree.value == second_node.value:
+        return tree
+
+    left = Lowest_Common_Ancestor(tree.left_child, first_node, second_node)
+    right = Lowest_Common_Ancestor(tree.right_child, first_node, second_node)
+
+    if ((left) and right) != None:
+        return tree
+
+    if left == None:
+        return right
+
+    return left

@@ -45,10 +45,6 @@ class TreeNode:
         if self.value == value:
             return True
         for child in self.children:
-            # returns error
-            # if child.value == value:
-            #     return True
-            # child.search(value)
             if child.search(value):
                 return True
         return False
@@ -87,14 +83,6 @@ class Tree:
         _show = graphviz.Digraph('G', filename='Tree.gv', format='png')
         _show.attr('node', shape='circle', fixedsize='true')
         _show.node(f'{self.root}')
-        # que = queue.Queue()
-        # que.put(self.root)
-        # while que.empty() == False:
-        #     element = que.get()
-        #     for child in element.children:
-        #         que.put(child)
-        #         _show.edge(f'{element}', f'{child}')
-        # _show.view()
 
         def childrens(node: TreeNode) -> None:
             for child in node.children:
