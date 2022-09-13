@@ -32,9 +32,3 @@ class Queue:
         #     return True
         # return False
         return len(self._storage) == 0
-    
-    def is_empty(self) -> bool:
-        # if self._storage.head == None:
-        #     return True
-        # return False
-        return len(self._storage) == 0

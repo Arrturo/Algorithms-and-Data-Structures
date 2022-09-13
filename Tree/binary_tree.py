@@ -1,5 +1,7 @@
+import random
 from typing import Any, Callable
 import graphviz
+
 
 class BinaryNode:
     """
@@ -85,7 +87,7 @@ class BinaryTree:
                 _show.edge(f'{node.value}', f'{node.right_child.value}')
         
         self.traverse_pre_order(childrens)
-        _show.view()
+        _show.render(f'output/BT{random.random()}', view=True, format='png', quiet_view=False)
 
 def Lowest_Common_Ancestor(tree: BinaryTree, first_node: BinaryNode, second_node: BinaryNode) -> BinaryNode:
     if tree == None:
@@ -104,3 +106,13 @@ def Lowest_Common_Ancestor(tree: BinaryTree, first_node: BinaryNode, second_node
         return right
 
     return left
+
+def invertBinaryTree(tree):
+    if tree:
+        left = tree.left_child
+        right = tree.right_child
+        tree.left_child = right
+        tree.right_child = left
+        invertBinaryTree(tree.left_child)
+        invertBinaryTree(tree.right_child)
+    return tree

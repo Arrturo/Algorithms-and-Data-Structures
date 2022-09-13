@@ -80,6 +80,9 @@ def testBinaryTree():
     assert bt.Lowest_Common_Ancestor(tree.root, node1, node3).value == 2
 
     tree.show()
+    bt.invertBinaryTree(tree.root)
+    tree.show()
+
 
 def testBinarySearchTree():
     node = BinaryNode(8)
