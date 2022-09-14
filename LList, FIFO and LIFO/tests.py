@@ -1,10 +1,10 @@
-import linked_list
+from linked_list import * 
 import LIFO_Stack
 import FIFO_Queue
 
 #LINKED LIST
 def testLinkedlist():
-    list_ = linked_list.LinkedList()
+    list_ = LinkedList()
 
     #ASSERT 1
     assert list_.head == None
@@ -50,7 +50,11 @@ def testLinkedlist():
     #ASSERT 8
     assert len(list_) == 2
 
-    list_.show()
+    #ASSERT 9 
+    list_.appendList([3, 7, 9, 6])
+    assert (str(list_)) == '1 -> 5 -> 3 -> 7 -> 9 -> 6'
+    
+    list_.show() 
 
 
 #LIFO

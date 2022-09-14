@@ -1,4 +1,5 @@
-from typing import Any
+import random
+from typing import Any, List
 import graphviz
 
 class Node:
@@ -11,11 +12,9 @@ class Node:
 
 class LinkedList:
     # head: Node
-    # tail: Node
 
-    def __init__(self, head=None, tail=None):
+    def __init__(self, head=None):
         self.head = head
-        self.tail = tail
 
     def __str__(self) -> str:
         node = self.head
@@ -24,6 +23,12 @@ class LinkedList:
             node = node.next
             node_value = node_value + ' -> ' + f'{node.value}'
         return node_value
+
+    def __iter__(self):
+        node = self.head
+        while node:
+            yield node.value
+            node = node.next
 
     def __len__(self) -> int:
         node = self.head
@@ -34,22 +39,25 @@ class LinkedList:
             node = node.next
             sum += 1
         return sum
+        # return len(list(iter(self)))
 
     def push(self, value: Any) -> None:
         node = Node(value, self.head)
         self.head = node
-        if self.tail is None:
-            self.head = node
-            self.tail = node
-
+    
     def append(self, value: Any) -> None:
         node = Node(value)
-        if (self.tail == None):
-            self.tail = node
-            self.head = node
-        self.tail.next = node
-        self.tail = node
+        head = self.head
 
+        while head.next:
+            head = head.next
+        head.next = node
+        head.next.next = None
+
+    def appendList(self, list: List[Any]) -> None:
+        for i in list:
+            self.append(i)
+    
     def node(self, at: int) -> Node:
         counter = 0
         node = self.head
@@ -73,7 +81,11 @@ class LinkedList:
 
     def remove_last(self):
         node = self.head
-        while (node.next.next):
+        if self.head == None:
+            return None
+        if self.head == None:
+            return None
+        while node.next.next:
             node = node.next
         last = node.next
         node.next = None
@@ -89,14 +101,6 @@ class LinkedList:
         after.next.next = None
         return removed.value
 
-    # def remove(self, after: Node) -> Any:
-    #     node = self.head
-    #     while node != after:
-    #         node = node.next
-    #     removed = node.next
-    #     node.next = None
-    #     return removed.value
-
     def show(self):
         _show = graphviz.Digraph('LL', filename='LinkedList', format='png')
         _show.attr(rankdir="LR")
@@ -107,4 +111,4 @@ class LinkedList:
         while node.next:
             _show.edge(f'{node.value}', f'{node.next.value}')
             node = node.next
-        _show.view()
+        _show.render(f'output/LL{random.random()}', view=True, format="png", quiet_view=False)
